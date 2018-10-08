@@ -1,6 +1,6 @@
 # CountdownSolver
 
-This is tiny program for solving the numbers game from the British TV program [Cowntown](https://en.wikipedia.org/wiki/Countdown_(game_show)), 
+This is a tiny program for solving the numbers game from the British TV program [Cowntown](https://en.wikipedia.org/wiki/Countdown_(game_show)), 
 in which contestants are presented with 6 numbers and a randomly generated target number, and 
 try to construct the target using the 6 numbers and the operations addition, subtraction, multiplication, and division. 
 

@@ -4,8 +4,7 @@ This is tiny program for solving the numbers game from the British TV program [C
 in which contestants are presented with 6 numbers and a randomly generated target number, and 
 try to construct the target using the 6 numbers and the operations addition, subtraction, multiplication, and division. 
 
-This simply brute-forces all possible expressions to find the solution. To avoid problems with operation orders, it creates all possible 
-postfix expressions of input numbers, and evaluates them.
+This simply brute-forces all possible expressions to find the solution. Expressions are created recursively and to avoid problems with operation orders, they are made in postfix form.
 
 ### Usage
 ```

@@ -26,11 +26,10 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    std::vector<int> numbers;
-
+    std::vector<int> nums;
     for(int i = 2; i < argc - 1; i++) {
         try{
-            numbers.push_back(std::stoi((std::string)argv[i]));
+            nums.push_back(std::stoi((std::string)argv[i]));
         }
         catch(std::invalid_argument& e) {
             prompt_usage();
@@ -46,13 +45,14 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    do{
-        for (int number : numbers)
-            std::cout << number << " ";
-        std::cout << std::endl;
-        if(!make_expressions(target, std::vector<int>(), numbers))
-            break;
-    }while(next_permutation(numbers.begin(), numbers.begin() + 6));
+    nums_with_expressions numbers;
+    for(int num : nums)
+        numbers.push_back(std::make_pair(num, std::vector<int>(1, num) ));
+
+    std::vector<int> solution;
+    solve_countdown(target, numbers, std::vector<bool>(static_cast<size_t>(number_of_numbers), false), solution);
+
+    std::cout << std::endl << evaluate_postfix(solution).second << std::endl;
 
     return 0;
 }

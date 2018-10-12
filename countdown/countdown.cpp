@@ -1,8 +1,6 @@
 //Solves Countdown numbers game.
 
 #include <iostream>
-#include <vector>
-#include <string>
 #include <stack>
 #include <algorithm>
 #include <cmath>
@@ -10,16 +8,14 @@
 #include <numeric>
 #include <bitset>
 
-int POSSIBLE_OPERATORS_NUM = 7;
-
-using nums_with_expressions = std::vector< std::pair<int, std::vector<int> > >;
+#include "countdown.h"
 
 
-std::string binary_operation_presentation(const std::string &lhs, const std::string &op, const std::string &rhs) {
+std::string Countdown::binary_operation_presentation(const std::string &lhs, const std::string &op, const std::string &rhs) {
     return lhs + " " + op + " " + rhs;
 }
 
-std::pair<int, std::string> operate(int lhs, int rhs, int op) {
+std::pair<int, std::string> Countdown::operate(int lhs, int rhs, int op) {
     /*
      * Evaluates and returns the value and string representation of a
      * binary operation.
@@ -66,7 +62,7 @@ std::pair<int, std::string> operate(int lhs, int rhs, int op) {
     }
 }
 
-std::pair<int, std::string> evaluate_postfix(std::vector<int> expression)
+std::pair<int, std::string> Countdown::evaluate_postfix(std::vector<int> expression)
 {
     /*
      * Evaluate a postfix expression with negative integers indicating operations:
@@ -103,8 +99,7 @@ std::pair<int, std::string> evaluate_postfix(std::vector<int> expression)
     return make_pair(evaluation_stack.top(), presentation);
 }
 
-int solve_countdown(int target, nums_with_expressions numbers,
-                    std::vector<bool> used, std::vector<int> &solution) {
+int Countdown::_solve(std::vector<bool> used, std::vector<int> &solution) {
     /*
      * Recursively creates and evaluates all possible expressions from numbers
      * and stores any possible solution to solution.
@@ -141,7 +136,7 @@ int solve_countdown(int target, nums_with_expressions numbers,
                     return 0;
                 }
 
-                if(!solve_countdown(target, numbers, used, solution))
+                if(!_solve(used, solution))
                     return 0;
 
                 numi = _numbers[i].first;
@@ -153,4 +148,15 @@ int solve_countdown(int target, nums_with_expressions numbers,
     }
     return 1;
 
+}
+
+Countdown::Countdown(int target, const std::vector<int> &nums) {
+    for(int num : nums)
+        numbers.push_back(std::make_pair(num, std::vector<int>(1, num) ));
+
+    this->target = target;
+}
+
+int Countdown::solve(std::vector<int> &solution) {
+    return _solve(std::vector<bool>(numbers.size(), false), solution);
 }
